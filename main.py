@@ -3,6 +3,8 @@ import time
 import glob
 from emailing import send_email
 import os
+from threading import Thread
+import time
 
 video = cv2.VideoCapture(0)
 time.sleep(1)
@@ -67,8 +69,10 @@ while True:
         all_images = glob.glob("images/*.png")
         index = int(len(all_images) / 2)
         image_with_object = all_images[index]
-        send_email(image_with_object)
-        clean_folder()
+        email_thread = Thread(target=send_email, args=(image_with_object, ))
+        email_thread.daemon = True
+
+        email_thread.start()
 
     print(status_list)
 
@@ -80,3 +84,4 @@ while True:
         break
 
 video.release()
+clean_folder()
