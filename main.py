@@ -2,6 +2,7 @@ import cv2
 import time
 import glob
 from emailing import send_email
+import os
 
 video = cv2.VideoCapture(0)
 time.sleep(1)
@@ -9,6 +10,13 @@ time.sleep(1)
 first_frame = None
 status_list = []
 count = 1
+
+
+def clean_folder():
+    images = glob.glob("images/*.png")
+    for image in images:
+        os.remove(image)
+
 
 while True:
     status = 0
@@ -60,6 +68,7 @@ while True:
         index = int(len(all_images) / 2)
         image_with_object = all_images[index]
         send_email(image_with_object)
+        clean_folder()
 
     print(status_list)
 
