@@ -37,7 +37,7 @@ while True:
     # Get a frame based on a threshold
     thresh_frame = cv2.threshold(delta_frame, 75, 255, cv2.THRESH_BINARY)[1]
 
-    # dilate does something idk
+    # dilate the frame
     dil_frame = cv2.dilate(thresh_frame, None, iterations=2)
 
     cv2.imshow("My Video", dil_frame)
