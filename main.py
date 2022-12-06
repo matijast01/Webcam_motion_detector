@@ -1,5 +1,4 @@
 import cv2
-import time
 import glob
 from emailing import send_email
 import os
